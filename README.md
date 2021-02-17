@@ -7,7 +7,7 @@ We will write a pipeline to perform a landscape genetic analyses with ddRADseq d
 Sources for Potential Programs:
 - EEMS: https://github.com/dipetkov/eems
 - ConStruct: http://www.genescape.org/construct.html
-- Circuitscape: http://www.genescape.org/construct.html
+- Circuitscape: https://circuitscape.org
 - BAYENV: https://gcbias.org/bayenv/
 - Latent Factor Mixed Models: 
   - https://cran.r-project.org/web/packages/lfmm/vignettes/lfmm.html
