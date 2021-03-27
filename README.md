@@ -5,6 +5,14 @@ We will write a pipeline to perform population and landscape genomic analyses SN
 
 Methods to be included in our pipeline are EEMS (Estimated Effective Migration Surfaces) to analyze/visualize spatial population structure, ConStruct to infer discrete population structure, Circuitscape to analyze connectivity across the landscape, and outlier detection (potentially using BAYESCAN) and environmental association analyses to examine loci that are related to environmental variation (potentially using BAYENV or latent factor mixed models in R). EEMS is implemented in C++, Circuitscape is implemented in Julia, and BAYENV is written in C and interfaced in the command line.
 
+Datasets to be used:
+We downloaded genomic data obtained from RADseq protocols and aligned using one of the main assembly programs for RADseq data, including Stacks and iPYRAD. 
+The data we downloaded came from the following articles:
+
+Bouzid et al. 2021. Molecular Ecology
+*Insert dryad link*
+*Include details like species, # of individuals, etc*
+
 
 Sources for Potential Programs:
 - EEMS: https://github.com/dipetkov/eems
