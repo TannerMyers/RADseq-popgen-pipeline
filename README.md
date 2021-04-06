@@ -20,10 +20,13 @@ Bouzid et al. 2021. Molecular Ecology
 *Insert dryad link*
 *Include details like species, # of individuals, etc*
 
+Quach et al. 2020. Biological Journal of the Linnean Society.
+Dryad link: https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4
+Contains x populations of Anolis cristatellus from Puerto Rico, including x individuals and filtered SNP data.
 
 Sources for Potential Programs:
 - `Stacks`:
-- `adegenet`:
+- `adegenet`: https://github.com/thibautjombart/adegenet/
 - `STRUCTURE`:
 - `Admixture`:
 - `ConStruct`: http://www.genescape.org/construct.html
