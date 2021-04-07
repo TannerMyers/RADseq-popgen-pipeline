@@ -19,11 +19,13 @@ Here, we will use an example dataset from Quach et al. (2020) to show the basics
 Like any R package, start by installing and importing the package.
 
 `install.packages("adegenet")`
+
 `library(adegenet)`
 
 Now, read in the data.
 
 `dat <- read.table("65filteredsinglepoly.str", head=FALSE)`
+
 `lizards <- df2genind(dat, ploidy=1)`
 
 The initial file object, `dat`, is simply a table of the structure file with no header specified. There is a command in the adegenet package to directly upload a Structure file called `read.structure`, however it assumes diploidy in your dataset, which does not work well for what we have here. The second step reduces the ploidy of the dataset to 1 and allows the program to interpret these data better. There are multiple ways to import your data from fasta files and other file formats, so look into the documentation for adegenet and pick what works best for you.
