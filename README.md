@@ -9,6 +9,12 @@ We will write a pipeline to perform population genomic analyses of SNP data obta
 
 Methods to be included in our pipeline are `adegenet` and `STRUCTURE`/`ADMIXTURE` to infer population structure using both parametric and non-parametric methods and ConStruct to infer population structure in a spatially explicit fashion, accounting for potential isolation by distance.
 
+*adegenet*
+The R package adegenet allows the user to perform genetic clustering on SNP sequence data.
+
+Here, we will use an example dataset from Quach et al. (2020) to show the basics of how adegenet works. This is a dataset of 48 individuals of Anolis cristatellus from the island of Vieques. We will use the structure file from their Dryad repostiroy (file extension .str) to import the dataset and perform a simple DAPC genetic clustering analysis.
+
+
 **The Data**
 
 *Insert more information about distichus ddRADseq data*
