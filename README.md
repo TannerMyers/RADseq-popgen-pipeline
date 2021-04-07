@@ -1,7 +1,7 @@
 # anole-popgen
 Scripts for population genomic analysis of RADseq data written for Auburn University Scripting course
 
-***Objectives***
+****Objectives****
 
 We will write a pipeline to perform population genomic analyses of SNP data obtained from reduced-representation genomic sequencing approaches. We will test our pipeline on a ddRADseq dataset obtained for nearly 300 individuals representing the Hispaniolan bark anole (*Anolis distichus*) species complex as well as other processed RADseq datasets downloaded from Dryad. The scripts we write will be used to demultiplex raw reads and assemble loci with the alignment program `Stacks` estimate population structure, and quantify gene flow across a landscape.
 
