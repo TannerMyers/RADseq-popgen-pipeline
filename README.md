@@ -22,9 +22,9 @@ Bouzid et al. 2021. Molecular Ecology
 
 Quach et al. 2020. Biological Journal of the Linnean Society.
 Dryad link: https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4
-Contains x populations of Anolis cristatellus from Puerto Rico, including x individuals and filtered SNP data.
+Contains 379 mtDNA samples of Anolis cristatellus from Puerto Rico, the Virgin islands, and the island of Vieques  including 48 individuals for which there are filtered SNP data.
 
-Sources for Potential Programs:
+Sources for Programs:
 - `Stacks`:
 - `adegenet`: https://github.com/thibautjombart/adegenet/
 - `STRUCTURE`:
