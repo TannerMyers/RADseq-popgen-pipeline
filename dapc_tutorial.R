@@ -36,12 +36,12 @@ grp <- find.clusters(lizards, max.n.clust=4)
 ###Note - other methods for choosing clusters outside this package may be
 ### better, and identifying good # of clusters for empirical data is tricky business
 
-#retained 50 PCs, choose 2 for # of clusters
+#retained 200 PCs, choose 2 for # of clusters
 
 
 ## Run the DAPC
 dapc1 <- dapc(lizards, grp$grp)
-#retained 50 PCAs, 2 linear discriminants (based on plots)
+#retained 45 PCAs, 2 linear discriminants (based on plots)
 #asks for number of PCs to retain again, don't want to retain too many components
 # to avoid overfitting
 
