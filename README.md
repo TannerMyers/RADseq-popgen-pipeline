@@ -38,7 +38,7 @@ Next, you want to determine the appropriate number of clusters to use for your D
 
 First, the function performs a PCA on the data to reduce dimensionality. The authors of the package recommend keeping as many PCAs as possible because there is no reason to exclude information at this stage. Of course, PCs contain less and less information the further you get from the first so it may not matter as long as you retain a large number. Here we will just tell it to retain 200 to capture the maximum number of PCs in the dataset.
 
-[embed PC plot]
+![pc1](https://github.com/TannerMyers/RADseq-popgen-pipeline/tree/main/images/pc1.png)
 
 After that, the function will look for a number of clusters, producing a maximum of 4 possible (you can set this as high as you want). First, the function will output a plot of BIC values for each possible number of clusters up to the maximum value you have specified, in this case, integers ranging from 1 to 4. The lower the BIC value, the better. 
 
