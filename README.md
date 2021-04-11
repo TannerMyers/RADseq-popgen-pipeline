@@ -21,7 +21,9 @@ The datasets we downloaded came from the following articles:
 	- Dryad link: [https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4](https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4)
 	- This dataset contains filtered SNP data (GBS protocol) obtained from 48 individuals of *Anolis cristatellus* from Puerto Rico, the Virgin Islands, and the island of Vieques. 
 
-- 
+- Mikles et al. 2020. Molecular Ecology
+	- Dryad link: [https://datadryad.org/stash/dataset/doi:10.5061/dryad.ncjsxkssb]
+	- This dataset contains a filtered VCF file. Supplementary data including locality data for each individual is available in the supplemental data available in the (paper)[https://onlinelibrary-wiley-com.spot.lib.auburn.edu/doi/full/10.1111/mec.15647#]
 
 
 ## Methods
