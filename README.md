@@ -99,6 +99,19 @@ There is a lot more information you can get from the DAPC analysis such as which
 **Admixture**
 
 **conStruct**
+All necessary data and R scripts are available in the conStruct folder within this repository. 
+
+Input Data Required:
+- STRUCTURE formatted file 
+	- converted .vcf to .str file in PGDSpider
+- Lat/Long data for each individual
+- geoDistance matrix (only necessary for spatial runs)
+
+Output Data:
+- "prefix"_model.fit.Robj
+- "prefix"_data.block.Robj
+- "prefix"_conStruct.results.Robj
+
 
 ## Sources
 Sources for Programs:
