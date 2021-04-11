@@ -9,13 +9,16 @@
 # This approach follows the protocol of Cerca et al. 2021.       #
 ##################################################################
 
-# Name variables 
-POP_DIR=/scratch/phyletica/distichus/stacks.denovo/population-stacks.denovo
+# Name variable for directory containing population-level directories
+POP_DIR=$1
 
+# Before running this script, make directories for each population that 
+# you will run Stacks on to identify `bad apples`. This variable will allow
+# you to iterate over each population directory in the for loop below.
 POPULATIONS=`ls $POP_DIR`
 
 # Load modules
-module load vcftools/v0.1.17          
+module load vcftools        
 
 # Loop through directories containing Stacks outputs for individual 
 # populations to run vcftools 
