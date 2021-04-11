@@ -99,6 +99,7 @@ There is a lot more information you can get from the DAPC analysis such as which
 **Admixture**
 
 **conStruct**
+
 All necessary data and R scripts are available in the conStruct folder within this repository. 
 
 Input Data Required:
