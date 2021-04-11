@@ -1,11 +1,11 @@
 #! /bin/bash
 
-### Bash and awk code shared by Pietro de Mello					### 
+### Bash and awk code shared by Pietro de Mello	### 
 ### This script summarizes the output of the stacks function `process_radtags`, ###
 ### which divides raw fastq files into individual fastq files for each sample	###
 
 # Set working directory
-work_dir=/scratch/phyletica/distichus
+work_dir=$1
 
 # Print out standard output & standard error output by process_radtags
 for out_error in $work_dir/cleaned/cleaned*_*/*.oe; 
@@ -30,5 +30,3 @@ for out_error in $work_dir/cleaned/cleaned*_*/*log ;
 		awk 'p;/NoRadTag/{p=1}/^ *$/{p=0}' $out_error | awk 'BEGIN {FS = OFS = "\t"} {print $2,$6} \'
 	done | \
 		sort -k1 | awk 'OFS="\t" {print}' | tail -n288 > $work_dir/cleaned/reads_per_sample.tsv 	 
-
-# Tail is temporary solution for getting rid of white space at beginning of file because regex in Pietro's code yields an empty file
