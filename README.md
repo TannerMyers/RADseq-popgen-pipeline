@@ -65,20 +65,30 @@ Downloading and indexing a reference genome
 
 ***
 
+After you run `Stacks` on your entire dataset, you may be dissatisfied by the number of loci recovered. There are both biological (e.g., allelic dropout) and experimental causes of missing data in RADseq datasets and both can diminish the quality of RADseq datasets. We provide a solution to remedy this issue using the protocol of [Cerca et al. (2021)](## References), which uses `vcftools` to quantify the frequency of missing data in each individual within a population so that one can identify individuals with missing data frequencies higher than the population average and remove them from the dataset. First, split your population map file into many population maps for each population in your dataset. Then, make directories corresponding to each population. Using the same optimized parameters you identified for your whole dataset, execute **run\_stacks_pipeline.sh** for each individual population, outputting the files produced by `Stacks` to each population's directory. After `Stacks` completes for each population, run the script **individual-missing-data-assessment.sh**. The **bad_apples** file produced by the script will include the individuals with missing data exceeding their population's average missing data frequency. Drop these from your dataset unless their population's missing data average is lower than the dataset average (the "MEAN_MISSING" value in the log file), in which case keep the individuals below the missing data average. 
+
+After deciding which individuals to drop from the dataset, omit them from your population map and run the `populations` module again with the new cleaned population map. The `populations` module includes many options for filtering your final dataset. We included several flags in **run\_stacks_pipeline.sh** to give you an idea of the options available. 
+
+By following these steps, one can optimize the RADseq dataset obtained from `Stacks` by optimizing the `Stacks` parameters and filtering out low-quality individuals. At this stage, edit the flags provided to `populations` in **run\_stacks_pipeline.sh** to include your filtering strategies and your desired output file formats. 
+
 ### adegenet
 
 The R package adegenet allows the user to perform genetic clustering on SNP sequence data.
 
-Here, we will use an example dataset from Quach et al. (2020) to show the basics of how adegenet works. This is a dataset of 48 individuals of Anolis cristatellus from the island of Vieques. We will use the structure file from their Dryad repository (file extension .str) to import the dataset and perform a simple DAPC genetic clustering analysis.
+Here, we will use an example dataset from Quach et al. (2020) to show the basics of how adegenet works. This is a dataset of 48 individuals of *Anolis cristatellus* from the island of Vieques. We will use the structure file from their Dryad repository (file extension .str) to import the dataset and perform a Discriminant Analyis of Principal Components (DAPC) to identify population clusters.
 
 *Step 1 - Load the library and import the data*
+
 Like any R package, start by installing and importing the package.
+
 ```
 install.packages("adegenet")
 
 library(adegenet)
 ```
+
 Now, read in the data.
+
 ```
 dat <- read.table("65filteredsinglepoly.str", head=FALSE)
 
