@@ -1,11 +1,29 @@
-# anole-popgen
+# RADseq Population Genomics
 Scripts for population genomic analysis of RADseq data written for Auburn University Scripting course
 
-****Objectives****
+## Objectives
 
-We will write a pipeline to perform population genomic analyses of SNP data obtained from reduced-representation genomic sequencing approaches. We will test our pipeline on a ddRADseq dataset obtained for nearly 300 individuals representing the Hispaniolan bark anole (*Anolis distichus*) species complex as well as other processed RADseq datasets downloaded from Dryad. The scripts we write will be used to demultiplex raw reads and assemble loci with the alignment program `Stacks` estimate population structure, and quantify gene flow across a landscape.
+Our pipeline is designed to take users from the step of obtaining restriction site-associated DNA sequence (RADseq) data from a sequencer to the beginning steps of population genomic inference. Specifically, we have provided scripts written in shell and R to demultiplex sequence data and assemble loci with `Stacks`, estimate population structure with both parametric and non-parametric population-clustering approaches (`Admixture` and `adegenet`), and to infer population structure under a spatially explicit model with `conStruct`.
 
-***Methods***
+## The Data
+
+
+
+We also downloaded genomic data obtained from RADseq protocols and aligned using one of the main assembly programs for RADseq data, including Stacks and iPYRAD. 
+The data we downloaded came from the following articles:
+
+- Bouzid et al. 2021. Molecular Ecology
+	- Insert dryad link*
+	- Include details like species, # of individuals, etc*
+
+- Quach et al. 2020. Biological Journal of the Linnean Society.
+	- Dryad link: [https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4](https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4)
+	- This dataset contains filtered SNP data obtained from 48 individuals of *Anolis cristatellus* from Puerto Rico, the Virgin Islands, and the island of Vieques.
+
+
+
+
+## Methods
 
 Methods to be included in our pipeline are `adegenet` and `STRUCTURE`/`ADMIXTURE` to infer population structure using both parametric and non-parametric methods and ConStruct to infer population structure in a spatially explicit fashion, accounting for potential isolation by distance.
 
@@ -74,21 +92,7 @@ Here, we can visualize the differences between groups. Oftentimes, if you have a
 
 There is a lot more information you can get from the DAPC analysis such as which samples are sorted into which group, or what proportion of variance each allele contributes to. All of these tasks and more are well documented in the adegenet documentation. There is also a useful help forum on the adegenet Github repository that has answers to common mistakes.
 
-***The Data***
-
-*Insert more information about distichus ddRADseq data*
-
-We also downloaded genomic data obtained from RADseq protocols and aligned using one of the main assembly programs for RADseq data, including Stacks and iPYRAD. 
-The data we downloaded came from the following articles:
-
-Bouzid et al. 2021. Molecular Ecology
-*Insert dryad link*
-*Include details like species, # of individuals, etc*
-
-Quach et al. 2020. Biological Journal of the Linnean Society.
-Dryad link: https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4
-Contains 379 mtDNA samples of Anolis cristatellus from Puerto Rico, the Virgin islands, and the island of Vieques  including 48 individuals for which there are filtered SNP data.
-
+## Sources
 Sources for Programs:
 - `Stacks`:
 - `adegenet`: https://github.com/thibautjombart/adegenet/
