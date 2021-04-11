@@ -1,11 +1,16 @@
 # RADseq Population Genomics
 A pipeline for population genomic analysis of RADseq data developed for the Auburn University Scripting for Biologists course.
 
-TOC:
-
-[Objectives](##objectives)
-[Data](##the-data)
+# Getting Started
+[Objectives](#objectives)
+[Data](#the-data)
 [Analyses](#methods)
+	[Stacks](#stacks)
+	[adegenet](#adegenet)
+	[admixture](#admixture)
+	[conStruct](#construct)
+[Sources](#sources)
+
 
 ## Objectives
 
