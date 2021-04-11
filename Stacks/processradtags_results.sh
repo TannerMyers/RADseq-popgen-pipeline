@@ -29,4 +29,4 @@ for out_error in $work_dir/cleaned/cleaned*_*/*log ;
 	do
 		awk 'p;/NoRadTag/{p=1}/^ *$/{p=0}' $out_error | awk 'BEGIN {FS = OFS = "\t"} {print $2,$6} \'
 	done | \
-		sort -k1 | awk 'OFS="\t" {print}' | tail -n288 > $work_dir/cleaned/reads_per_sample.tsv 	 
+		sort -k1 | awk 'OFS="\t" {print}' > $work_dir/cleaned/reads_per_sample.tsv 	 
