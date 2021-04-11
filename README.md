@@ -26,11 +26,11 @@ We also downloaded genomic data obtained from RADseq protocols and aligned using
 The datasets we downloaded came from the following articles:
 
 - Bouzid et al. 2021. Molecular Ecology.
-	- Dryad link: [https://datadryad.org/stash/dataset/doi:10.5061/dryad.n5tb2rbv2](https://datadryad.org/stash/dataset/doi:10.5061/dryad.n5tb2rbv2)
+	- [Dryad link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.n5tb2rbv2)
 	- This dataset includes filtered ddRADseq data for 108 *Sceloporus occidentalis* lizards collected across western North America.
 
 - Quach et al. 2020. Biological Journal of the Linnean Society.
-	- Dryad link: [https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4](https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4)
+	- [Dryad link](https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4)
 	- This dataset contains filtered SNP data (GBS protocol) obtained from 48 individuals of *Anolis cristatellus* from Puerto Rico, the Virgin Islands, and the island of Vieques. 
 
 - Mikles et al. 2020. Molecular Ecology
