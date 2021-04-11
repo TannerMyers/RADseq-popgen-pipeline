@@ -4,8 +4,10 @@
 #install.packages("conStruct")
 #install.packages("vcfR")
 library(conStruct)
-library(ps, lib.loc = "/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
-library(conStruct, lib.loc = "/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
+
+#these two lines for the library are necessary locally if R looks in the wrong place for the packages
+#library(ps, lib.loc = "/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
+#library(conStruct, lib.loc = "/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
 library(rasterVis)
 library(raster)
 library(rgl)
@@ -143,9 +145,11 @@ my.xvals <- x.validation(train.prop = 0.9,
 ##############################################
 
 
-#vcf_data <- read.vcfR("Mikles_et_al._SongSparrows_MolecularEcology2020.vcf")
-#convert vcf to structure format in pgdspider
+#Convert vcf to structure format in pgdspider
+#can also find other packages to do this, but pgdspider works well
 
+#Reading in the STRUCTURE formatted file as mydata. The start loci indicates which column to start reading and start.samples indicates which row to start reading as samples. 
+#Missing data can be formatted as 0 or -9, look at data to see which is the case
 mydata <- structure2conStruct(infile = "~/Desktop/Scripting/project/Mickles_data3_reduced2.str",
                                         onerowperind = FALSE,
                                         start.loci = 3,
@@ -153,11 +157,10 @@ mydata <- structure2conStruct(infile = "~/Desktop/Scripting/project/Mickles_data
                                         missing.datum = -9,
                                         outfile = "~/Desktop/Scripting/project/Mickles_construct_reduced2")
 
-
+#Reading in the locality files. Make sure that the number of records between localities and structure file match
 localities <- read.csv("Mickles_latlong_reduced2.csv")
 
-#localities <- localities[,2:3]
-
+#Use package raster to get a digital elevation model (DEM) file
 #Getting DEM file for USA 
 raster::getData('alt', country='USA', mask=TRUE)
 DEM <- raster("USA1_msk_alt.grd")
