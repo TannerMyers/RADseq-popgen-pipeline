@@ -74,12 +74,19 @@ gstacks -P $OUT_DIR \
    -M $POP_MAP \
         -t 8 
 
+#################################################################
+#    Note: Next two steps are not not necessary unless you have #
+#  a reference genome to align your assembled loci to.          # 
+#  Skip to populations if you do not have a reference genome.    #          
+#################################################################
+
 # Align the consensus catalog loci to a reference genome
 bwa mem -t 8 $BWA_DB $OUT_DIR/catalog.fa.gz |
     samtools view -b |
     samtools sort --threads 4 > $OUT_DIR/aligned_catalog.bam
 
-# Integrate reference genome alignment information into catalog loci
+# Run stacks-integrate-alignments
+    ## Integrate reference genome alignment information into catalog loci
 stacks-integrate-alignments -P $OUT_DIR \
     -B $OUT_DIR/aligned_catalog.bam \
     -O $OUT_DIR/integrated-alignment
@@ -101,9 +108,3 @@ populations -P $OUT_DIR \
     --fstats \
     --phylip-var \
     --plink  
-
-
-
-
-### It looks like the current blocks below the modules loads are for different analyses. Could you add a comment before each one explaining what that block does? Also, will this mean that the script is modified for different things, or are all the things currently commented out actually run every time you run the script?
-### It could be useful to add an if statement at the very beginning that double checks that the user has specified all the necessary files and spits out an error message if they haven't
