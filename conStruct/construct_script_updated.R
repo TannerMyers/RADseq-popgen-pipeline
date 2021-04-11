@@ -4,10 +4,8 @@
 #install.packages("conStruct")
 #install.packages("vcfR")
 library(conStruct)
-
-#these two lines for the library are necessary locally if R looks in the wrong place for the packages
-#library(ps, lib.loc = "/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
-#library(conStruct, lib.loc = "/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
+library(ps, lib.loc = "/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
+library(conStruct, lib.loc = "/Library/Frameworks/R.framework/Versions/3.6/Resources/library")
 library(rasterVis)
 library(raster)
 library(rgl)
@@ -144,13 +142,10 @@ my.xvals <- x.validation(train.prop = 0.9,
 ############# SCRIPTING PROJECT ############## 
 ##############################################
 
-###### Formatting data
 
-#Convert vcf to structure format in pgdspider
-#can also find other packages to do this, but pgdspider works well
+#vcf_data <- read.vcfR("Mikles_et_al._SongSparrows_MolecularEcology2020.vcf")
+#convert vcf to structure format in pgdspider
 
-#Reading in the STRUCTURE formatted file as mydata. The start loci indicates which column to start reading and start.samples indicates which row to start reading as samples. 
-#Missing data can be formatted as 0 or -9, look at data to see which is the case
 mydata <- structure2conStruct(infile = "~/Desktop/Scripting/project/Mickles_data3_reduced2.str",
                                         onerowperind = FALSE,
                                         start.loci = 3,
@@ -158,10 +153,11 @@ mydata <- structure2conStruct(infile = "~/Desktop/Scripting/project/Mickles_data
                                         missing.datum = -9,
                                         outfile = "~/Desktop/Scripting/project/Mickles_construct_reduced2")
 
-#Reading in the locality files. Make sure that the number of records between localities and structure file match
+
 localities <- read.csv("Mickles_latlong_reduced2.csv")
 
-#Use package raster to get a digital elevation model (DEM) file
+#localities <- localities[,2:3]
+
 #Getting DEM file for USA 
 raster::getData('alt', country='USA', mask=TRUE)
 DEM <- raster("USA1_msk_alt.grd")
@@ -184,17 +180,16 @@ xy <- matrix(ncol=2, c(localities$Long, localities$Lat))
 #removing a few entries which when run in the topodistance command created INF values
 xy_reduced <- xy[c(1:11, 22:138, 140:147), ]
 
-#Use this command to calculate the topoDistance from the DEM file for the indicated points
 #getting error that some coordinates not found and omitted when using the cropped DEM, trying the whole DEM
 #this was fixed by putting longitude first, then latitude in the pts file 
 tdist <- topoDist(DEM_crop$USA1_msk_alt,  
                   pts = xy_reduced, paths=FALSE) 
 
+write.csv(tdist, file="topographicDistance.csv")
+help(write.csv)
+## running analyses
 
-
-####### Running analyses
-
-### Starting out with non-spatial run
+# Starting out with non-spatial run
 my.run <- conStruct(spatial = FALSE, 
                     K = 4, 
                     freqs = mydata, 
@@ -208,7 +203,7 @@ my.run <- conStruct(spatial = FALSE,
 load("nspK3_conStruct.results.Robj")
 admix.props <- conStruct.results$chain_1$MAP$admix.proportions
 
-make.structure.plot(admix.proportions = admix.props, + sample.names = row.names(localities), + mar = c(4.5,4,2,2), sort.by = 1)
+make.structure.plot(admix.proportions = admix.props, + mar = c(4.5,4,2,2), sort.by = 1)
 
 # make the desired map
 maps::map(xlim = range(xy_reduced[,1]) + c(-5,5), ylim = range(xy_reduced[,2])+c(-2,2), col="gray")
@@ -218,7 +213,7 @@ make.admix.pie.plot(admix.proportions = admix.props,
                     add = TRUE)
 
 
-### Now doing a spatial run
+#Now doing a spatial run
 
 my.run <- conStruct(spatial = TRUE, 
                     K = 3, 
@@ -226,7 +221,7 @@ my.run <- conStruct(spatial = TRUE,
                     geoDist = tdist, 
                     n.iter = 500,
                     coords = xy_reduced,
-                    prefix = "spK3")
+                    prefix = "nspK3")
 
 #Load Results
 load("nspK3_conStruct.results.Robj")
@@ -234,10 +229,21 @@ admix.props <- conStruct.results$chain_1$MAP$admix.proportions
 #make.structure.plot(admix.proportions = admix.props)
 
 #Make a map and add the pie results on top
-maps::map(xlim = range(xy_reduced[,1]) + c(-5,5), ylim = range(xy_reduced[,2])+c(-2,2), col="gray")
+maps::map(xlim = range(xy_reduced[,1]) + c(-2,2), ylim = range(xy_reduced[,2])+c(-5,5), col="black", database="state")
+maps::map('state', 'california')
 make.admix.pie.plot(admix.proportions = admix.props,
                     coords = xy_reduced,
+                    radii = 1.5,
                     add = TRUE)
+make.structure.plot(admix.proportions = admix.props, sort.by = 1,
+                    layer.order = c(1,2,3),
+                    sample.names = localities$Sample.ID,
+                    mar = c(4.5,4,2,2))
+#sort by latitude
+#make.structure.plot(admix.proportions = admix.props,
+#                   sample.order = order(data.block$coords[,1]))
+
+
 ######COMPARE TWO RUNS##########
 
 # load output files from a run with 
