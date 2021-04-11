@@ -31,7 +31,7 @@ The datasets we downloaded came from the following articles:
 ### Stacks
 
 
-**adegenet**
+### adegenet
 
 The R package adegenet allows the user to perform genetic clustering on SNP sequence data.
 
@@ -96,9 +96,9 @@ Here, we can visualize the differences between groups. Oftentimes, if you have a
 
 There is a lot more information you can get from the DAPC analysis such as which samples are sorted into which group, or what proportion of variance each allele contributes to. All of these tasks and more are well documented in the adegenet documentation. There is also a useful help forum on the adegenet Github repository that has answers to common mistakes.
 
-**Admixture**
+### Admixture
 
-**conStruct**
+### conStruct
 
 All necessary data and R scripts are available in the conStruct folder within this repository. 
 
