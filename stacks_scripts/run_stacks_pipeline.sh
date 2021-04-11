@@ -57,19 +57,19 @@ cstacks -P $OUT_DIR \
    -p 8    
 
 # Run sstacks
-    ## 
+    ## sstacks matches to the catalog
 sstacks -P $OUT_DIR \
    -M $POP_MAP \
    -p 8 
 
 # Run tsv2bam
-    ## 
+    ## Converts tsv files into bam files
 tsv2bam -P $OUT_DIR \
         -M $POP_MAP \
        --pe-reads-dir $SAMPLE_DIR \
         -t 8 
 # Run gstacks
-    ## 
+    ## determines consensus catalog loci
 gstacks -P $OUT_DIR \
    -M $POP_MAP \
         -t 8 
@@ -80,7 +80,8 @@ gstacks -P $OUT_DIR \
 #  Skip to populations if you do not have a reference genome.    #          
 #################################################################
 
-# Align the consensus catalog loci to a reference genome
+# Run bwa mem and samtools
+    ## Align the consensus catalog loci to a reference genome
 bwa mem -t 8 $BWA_DB $OUT_DIR/catalog.fa.gz |
     samtools view -b |
     samtools sort --threads 4 > $OUT_DIR/aligned_catalog.bam
