@@ -48,11 +48,22 @@ Prior to running `Stacks`, we recommend formatting the directory in which you wi
 
 Users can run the script **run\_proc_radtags.sh** to execute `process_radtags`. You will need a tab-delimited file containing barcodes and sample IDs to provide names to the demultiplexed sample fastq files. Then, use **processradtags_results.sh** and **processradtags_results.r** to plot the number of retained reads for each individual in your dataset.
 
-Running the `Stacks` pipeline can be done by using either **run\_denovo_map.sh** or the **run\_stacks_pipeline.sh**. The **run\_denovo_map.sh** script uses `denovo_map`, a wrapper provided by `Stacks` that automates the pipeline, but this approach can be limited by large numbers of samples and is less flexible than just running each component of the pipeline individually. I recommend using the results from `process_radtags` to identify a subset of individuals to use **run\_denovo_map.sh** with to see the effect that different parameter values have on the number of loci and SNPs retained by Stacks (see [Paris et al. (2017)](## References) for more information to guide your parameter value selection). Then, once the desired combination of parameter values is identified, use **run\_stacks_pipeline.sh** to implement `Stacks` on your whole dataset.
+Prior to running `Stacks`, make a population map file consisting of tab-delimited columns of samples and their populations. Running the `Stacks` pipeline can be done by using either **run\_denovo_map.sh** or the **run\_stacks_pipeline.sh**. The **run\_denovo_map.sh** script uses `denovo_map`, a wrapper provided by `Stacks` that automates the pipeline, but this approach can be limited by large numbers of samples and is less flexible than just running each component of the pipeline individually. We recommend using the results from `process_radtags` to identify a subset of individuals to use **run\_denovo_map.sh** with to see the effect that different parameter values have on the number of loci and SNPs retained by Stacks (see [Paris et al. (2017)](## References) for more information to guide your parameter value selection). The `Stacks` developers recommend setting the `-R` flag in the `populations` module to 0.80, requiring all loci that are retained to be found in 80% of the populations specified in your population map file.
 
 Note: `Stacks` offers another wrapper that allows users to perform a reference genome-based assembly called `ref_map`. Following [Paris et al. (2017)](## References), we used the integrated approach in which we assemble loci *de novo*, align the consensus assembled loci against the reference genome of a closely related species, and then integrate information from that alignment back into the assembled loci. The integrated approach was found to result in considerably more loci than use of `ref_map`. 
 
+Once `Stacks` has completed for your subset of samples and the optimal parameter values have been identified, we recommend running it all the way through with all your samples using **run\_stacks_pipeline.sh**. If you are using a reference genome, follow the steps provided below. If not, remove the `bwa mem` and `stacks-integrate-alignments` lines from the script. 
 
+***
+Downloading and indexing a reference genome
+
+- I downloaded the reference genome for *Anolis carolinensis* from the Ensembl database with this line of code: 
+	- `rsync -av rsync://ftp.ensembl.org/ensembl/pub/release-101/fasta/anolis_carolinensis/dna/ .` 
+	- Update the url for your reference genome
+
+- I then ran the script **bwa_index.sh** to index the genome and create a reference genome database.	
+
+***
 
 ### adegenet
 
