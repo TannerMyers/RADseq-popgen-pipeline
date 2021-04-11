@@ -26,57 +26,67 @@ module load bwa
     ## ustacks is the step of the Stacks pipeline that assembles loci within individuals. Each individual
     ## can be treated as its own job so this step can be parallelized.
 
-## Extract the sample IDs from the population map to iterate over with ustacks.
-SAMPLES=`awk 'BEGIN {OFS = FS} {print $1}' $POP_MAP`
+    ## Extract the sample IDs from the population map to iterate over with ustacks.
+    SAMPLES=`awk 'BEGIN {OFS = FS} {print $1}' $POP_MAP`
 
 id=1
 for sample in $SAMPLES 
 do
    ## ustacks flag definitions:
-    # -f
-    # --name
-    # -o 
-    # -M 
-    # -m
-    # -n 
+    # -f is the input file path
+    # --name the sample's name
+    # -o output file directory
+    # -M maximum distance in nucleotides allowed between stacks
+    # -m minimum depth of coverage required to create a stack
+    # -N maximum distance allowed to align secondary reads to primary stacks 
         ## In my case, I used the same value for m and N 
-    # --disable-gapped 
-    # -p 
+    # --disable-gapped do not perform gapped alignments between stacks
+    # -p allows parallel execution with the number of threads allotted
    ustacks -f $SAMPLE_DIR/${sample}.1.fq.gz -i $id --name $sample -o $OUT_DIR -M $M -m $n -N $n --disable-gapped -p 8
    let "id+=1"
 done
 
 # Run cstacks
-    ## cstacks 
-        # n 
+    ## cstacks builds the catalog of loci
+        # -M population map
+        # -P path to the file containing stacks output files
+        # -n number of mismatches allowed between samples when building the catalog
 cstacks -P $OUT_DIR \
    -M $POP_MAP \
    -n $n \
    -p 8    
 
+# Run sstacks
+    ## 
 sstacks -P $OUT_DIR \
    -M $POP_MAP \
    -p 8 
 
+# Run tsv2bam
+    ## 
 tsv2bam -P $OUT_DIR \
         -M $POP_MAP \
        --pe-reads-dir $SAMPLE_DIR \
         -t 8 
-
+# Run gstacks
+    ## 
 gstacks -P $OUT_DIR \
    -M $POP_MAP \
         -t 8 
 
+# Align the consensus catalog loci to a reference genome
 bwa mem -t 8 $BWA_DB $OUT_DIR/catalog.fa.gz |
     samtools view -b |
     samtools sort --threads 4 > $OUT_DIR/aligned_catalog.bam
 
+# Integrate reference genome alignment information into catalog loci
 stacks-integrate-alignments -P $OUT_DIR \
     -B $OUT_DIR/aligned_catalog.bam \
     -O $OUT_DIR/integrated-alignment
 
 # Run populations
-    # 
+    # --min-mac sets the minimum minor allele count
+    #
 populations -P $OUT_DIR \
     -M $POP_MAP \ 
     -t 8 \
