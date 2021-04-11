@@ -226,7 +226,7 @@ my.run <- conStruct(spatial = TRUE,
                     geoDist = tdist, 
                     n.iter = 500,
                     coords = xy_reduced,
-                    prefix = "nspK3")
+                    prefix = "spK3")
 
 #Load Results
 load("nspK3_conStruct.results.Robj")
