@@ -42,6 +42,17 @@ The datasets we downloaded came from the following articles:
 
 ### Stacks
 
+`Stacks` is a pipeline used to assemble RADseq data and consists of wrappers written in Perl that are implemented in C++. The first step in the Stacks pipeline is `process_radtags`, which demultiplexes and cleans raw reads. Then, the main `Stacks` pipeline assembles loci within individuals with `ustacks`, identifies a catalog of loci with `cstacks` and then matches loci against the catalog with `sstacks`, and `tsv2bam` converts the .tsv files created in previous steps into .bam files. `gstacks` builds contigs by incorporating the paired-end reads, calls variants (SNPs), and genotypes samples. Then, users can run `populations` to filter data, estimate population genetic parameters, and creates file formatted for input in population genetic and phylogenetic analysis software.
+
+Prior to running `Stacks`, we recommend formatting the directory in which you will be assembly RADseq loci according to the recommendations of [Rochette & Catchen (2017)](## References).
+
+Users can run the script **run\_proc_radtags.sh** to execute `process_radtags`. You will need a tab-delimited file containing barcodes and sample IDs to provide names to the demultiplexed sample fastq files. Then, use **processradtags_results.sh** and **processradtags_results.r** to plot the number of retained reads for each individual in your dataset.
+
+Running the `Stacks` pipeline can be done by using either **run\_denovo_map.sh** or the **run\_stacks_pipeline.sh**. The **run\_denovo_map.sh** script uses `denovo_map`, a wrapper provided by `Stacks` that automates the pipeline, but this approach can be limited by large numbers of samples and is less flexible than just running each component of the pipeline individually. I recommend using the results from `process_radtags` to identify a subset of individuals to use **run\_denovo_map.sh** with to see the effect that different parameter values have on the number of loci and SNPs retained by Stacks (see [Paris et al. (2017)](## References) for more information to guide your parameter value selection). Then, once the desired combination of parameter values is identified, use **run\_stacks_pipeline.sh** to implement `Stacks` on your whole dataset.
+
+Note: `Stacks` offers another wrapper that allows users to perform a reference genome-based assembly called `ref_map`. Following [Paris et al. (2017)](## References), we used the integrated approach in which we assemble loci *de novo*, align the consensus assembled loci against the reference genome of a closely related species, and then integrate information from that alignment back into the assembled loci. The integrated approach was found to result in considerably more loci than use of `ref_map`. 
+
+
 
 ### adegenet
 
@@ -90,7 +101,7 @@ First, the function will again ask you how many PCs to retain. In this case you 
 
 ![pc2](https://github.com/TannerMyers/RADseq-popgen-pipeline/tree/main/images/pc2.png)
 
-In this case, I will retain 50 PCs, which is around where the elbow of the plot seems to start.
+In this case, we will retain 50 PCs, which is around where the elbow of the plot seems to start.
 
 After that, the program will show you a plot of discriminant function analysis eigenvalues (this is the special thing about DAPC). The higher the eigenvalue, the more information in that discriminant function. Discriminant functions serve the task of taking data with pre-defined groups (remember the k-value?) and maximizing inter-group variance while minimizing intra-group variance. In this case, since we only have a k-value of 2, we only retain 1 discriminant function, which is why the plot is just a big red brick (eigenvalues are calculated over matrices, and since we only have two groups we only have a 2x2 matrix, hence the single eigenvalue). Thus, we only have to say to retain 1 discrminant function, since the minimum to retain is 1 anyway, and we only have one to choose from. If you are dealing with a larger k-value, you will get multiple discriminant functions with the first being the largest (and most informative) and then decreasing, similar to a PCA. Often, the first 5 or so discriminant functions will have the information you need.
 
@@ -135,4 +146,15 @@ Sources for Programs:
 - `ConStruct`: [https://github.com/gbradburd/conStruct](https://github.com/gbradburd/conStruct)
 
 ## References
+
+> Cerca, J., M. F. Maurstad, N. C. Rochette, A. G. Rivera‐Colón, N. Rayamajhi, J. M. Catchen, and T. H. Struck. 2021. Removing the bad apples: A simple bioinformatic method to improve loci‐recovery in de novo RADseq data for non‐model organisms. Methods Ecol Evol 2041–210X.13562.
+> 
+> Linck, E., and C. J. Battey. 2019. Minor allele frequency thresholds strongly affect population structure inference with genomic data sets. Mol Ecol Resour 19:639–647. doi: 10.1111/1755-0998.12995.
+> 
+> Paris, J. R., J. R. Stevens, and J. M. Catchen. 2017. Lost in parameter space: a road map for stacks. Methods Ecol Evol 8:1360–1373. doi: 10.1111/2041-210X.12775.
+> 
+> Rochette, N. C., A. G. Rivera‐Colón, and J. M. Catchen. 2019. Stacks 2: analytical methods for paired‐end sequencing improve RADseq‐based population genomics. Mol Ecol 28:4737–4754. doi: 10.1111/mec.15253.
+> 
+> Rochette, N. C., and J. M. Catchen. 2017. Deriving genotypes from RAD-seq short-read data using Stacks. Nat Protoc 12:2640–2659. doi:10.1038/nprot.2017.123.
+
 
