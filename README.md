@@ -2,14 +2,15 @@
 A pipeline for population genomic analysis of RADseq data developed for the Auburn University Scripting for Biologists course.
 
 # Getting Started
-[Objectives](#objectives)
-[Data](#the-data)
-[Analyses](#methods)
-	[Stacks](#stacks)
-	[adegenet](#adegenet)
-	[admixture](#admixture)
-	[conStruct](#construct)
-[Sources](#sources)
+- [Objectives](#objectives)
+- [Data](#the-data)
+- [Analyses](#methods)
+	- [Stacks](#stacks)
+	- [adegenet](#adegenet)
+	- [admixture](#admixture)
+	- [conStruct](#construct)
+- [Sources](#sources)
+- [References](#references)
 
 
 ## Objectives
@@ -133,6 +134,5 @@ Sources for Programs:
 - `Admixture`: [http://dalexander.github.io/admixture/download.html](http://dalexander.github.io/admixture/download.html)
 - `ConStruct`: [https://github.com/gbradburd/conStruct](https://github.com/gbradburd/conStruct)
 
-**References**
-
+## References
 
