@@ -28,7 +28,7 @@ The datasets we downloaded came from the following articles:
 
 ## Methods
 
-**Stacks**
+###**Stacks**
 
 
 **adegenet**
