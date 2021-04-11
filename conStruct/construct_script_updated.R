@@ -144,6 +144,7 @@ my.xvals <- x.validation(train.prop = 0.9,
 ############# SCRIPTING PROJECT ############## 
 ##############################################
 
+###### Formatting data
 
 #Convert vcf to structure format in pgdspider
 #can also find other packages to do this, but pgdspider works well
@@ -183,6 +184,7 @@ xy <- matrix(ncol=2, c(localities$Long, localities$Lat))
 #removing a few entries which when run in the topodistance command created INF values
 xy_reduced <- xy[c(1:11, 22:138, 140:147), ]
 
+#Use this command to calculate the topoDistance from the DEM file for the indicated points
 #getting error that some coordinates not found and omitted when using the cropped DEM, trying the whole DEM
 #this was fixed by putting longitude first, then latitude in the pts file 
 tdist <- topoDist(DEM_crop$USA1_msk_alt,  
@@ -190,9 +192,9 @@ tdist <- topoDist(DEM_crop$USA1_msk_alt,
 
 
 
-## running analyses
+####### Running analyses
 
-# Starting out with non-spatial run
+### Starting out with non-spatial run
 my.run <- conStruct(spatial = FALSE, 
                     K = 4, 
                     freqs = mydata, 
@@ -216,7 +218,7 @@ make.admix.pie.plot(admix.proportions = admix.props,
                     add = TRUE)
 
 
-#Now doing a spatial run
+### Now doing a spatial run
 
 my.run <- conStruct(spatial = TRUE, 
                     K = 3, 
