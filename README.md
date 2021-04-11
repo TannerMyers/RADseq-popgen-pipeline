@@ -3,9 +3,9 @@ A pipeline for population genomic analysis of RADseq data developed for the Aubu
 
 TOC:
 
-[Objectives](## objectives)
-[Data](## the-data)
-[Analyses](## methods)
+[Objectives](##objectives)
+[Data](##the-data)
+[Analyses](#methods)
 
 ## Objectives
 
