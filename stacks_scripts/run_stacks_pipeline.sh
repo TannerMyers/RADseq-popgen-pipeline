@@ -92,19 +92,28 @@ stacks-integrate-alignments -P $OUT_DIR \
     -O $OUT_DIR/integrated-alignment
 
 # Run populations
-    # --min-mac sets the minimum minor allele count
-    #
+    # -R sets the minimum percentage of individuals across populations required to process a locus
+    # -r sets the minimum percentage of individuals within a population required to process a locus for that population.
+        ## Use `-p` to set a minimum number of populations that must be present for a locus to be processed.
+    # --write-single-snp restricts the number of polymorphic sites to include only the first SNP on a locus for analysis
+    # --min-mac sets the minimum minor allele count. Use `2` to exclude singletons
+    # --hwe estimates divergence from Hardy-Weiberg equilibrium for each locus
+    # --fstats estimates F statistics for each SNP
+    # The --vcf through --plink flags specify file formats for downstream analysis
+    # software. Include more or less depending on the goals you have for your dataset.
+    # More can be found by typing `populations --help` on the command line.
 populations -P $OUT_DIR \
     -M $POP_MAP \ 
     -t 8 \
-    -R 0.65 \
+    -R 0.5 \
+    -r 0.5 \
     --min-mac 2 \
     --write-single-snp \
+    --hwe \
+    --fstats \
     --vcf
     --fasta-samples \
     --fasta-loci \
     --structure \
-    --hwe \
-    --fstats \
     --phylip-var \
     --plink  
