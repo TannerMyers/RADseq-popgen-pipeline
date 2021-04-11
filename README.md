@@ -1,5 +1,5 @@
 # RADseq Population Genomics
-Scripts for population genomic analysis of RADseq data written for Auburn University Scripting course
+A pipeline for population genomic analysis of RADseq data developed for the Auburn University Scripting for Biologists course.
 
 ## Objectives
 
@@ -7,25 +7,27 @@ Our pipeline is designed to take users from the step of obtaining restriction si
 
 ## The Data
 
+The scripts written to demultiplex and assemble raw sequence data with `Stacks` were tested on a double-digest RADseq (ddRADseq) dataset of 276 *Anolis distichus* lizards from the Bahamas, Haiti, and the Dominican Republic gathered by TM.
 
+We also downloaded genomic data obtained from RADseq protocols and aligned using one of the two most popular assembly programs for RADseq, Stacks and PyRAD. 
 
-We also downloaded genomic data obtained from RADseq protocols and aligned using one of the main assembly programs for RADseq data, including Stacks and iPYRAD. 
-The data we downloaded came from the following articles:
+The datasets we downloaded came from the following articles:
 
-- Bouzid et al. 2021. Molecular Ecology
-	- Insert dryad link*
-	- Include details like species, # of individuals, etc*
+- Bouzid et al. 2021. Molecular Ecology.
+	- Dryad link: [https://datadryad.org/stash/dataset/doi:10.5061/dryad.n5tb2rbv2](https://datadryad.org/stash/dataset/doi:10.5061/dryad.n5tb2rbv2)
+	- This dataset includes filtered ddRADseq data for 108 *Sceloporus occidentalis* lizards collected across western North America.
 
 - Quach et al. 2020. Biological Journal of the Linnean Society.
 	- Dryad link: [https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4](https://datadryad.org/stash/dataset/doi%253A10.5061%252Fdryad.80gb5mkn4)
-	- This dataset contains filtered SNP data obtained from 48 individuals of *Anolis cristatellus* from Puerto Rico, the Virgin Islands, and the island of Vieques.
+	- This dataset contains filtered SNP data (GBS protocol) obtained from 48 individuals of *Anolis cristatellus* from Puerto Rico, the Virgin Islands, and the island of Vieques. 
 
-
+- 
 
 
 ## Methods
 
-Methods to be included in our pipeline are `adegenet` and `STRUCTURE`/`ADMIXTURE` to infer population structure using both parametric and non-parametric methods and ConStruct to infer population structure in a spatially explicit fashion, accounting for potential isolation by distance.
+**Stacks**
+
 
 **adegenet**
 
@@ -92,10 +94,18 @@ Here, we can visualize the differences between groups. Oftentimes, if you have a
 
 There is a lot more information you can get from the DAPC analysis such as which samples are sorted into which group, or what proportion of variance each allele contributes to. All of these tasks and more are well documented in the adegenet documentation. There is also a useful help forum on the adegenet Github repository that has answers to common mistakes.
 
+**Admixture**
+
+**conStruct**
+
 ## Sources
 Sources for Programs:
-- `Stacks`:
-- `adegenet`: https://github.com/thibautjombart/adegenet/
-- `STRUCTURE`:
-- `Admixture`:
-- `ConStruct`: http://www.genescape.org/construct.html
+
+- `Stacks`: [https://catchenlab.life.illinois.edu/stacks/](https://catchenlab.life.illinois.edu/stacks/)
+- `adegenet`: [https://github.com/thibautjombart/adegenet/](https://github.com/thibautjombart/adegenet/)
+- `Admixture`: [http://dalexander.github.io/admixture/download.html](http://dalexander.github.io/admixture/download.html)
+- `ConStruct`: [https://github.com/gbradburd/conStruct](https://github.com/gbradburd/conStruct)
+
+**References**
+
+
