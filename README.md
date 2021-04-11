@@ -1,6 +1,12 @@
 # RADseq Population Genomics
 A pipeline for population genomic analysis of RADseq data developed for the Auburn University Scripting for Biologists course.
 
+TOC:
+
+[Objectives](##objectives)
+[Data](##the-data)
+[Analyses](##methods)
+
 ## Objectives
 
 Our pipeline is designed to take users from the step of obtaining restriction site-associated DNA sequence (RADseq) data from a sequencer to the beginning steps of population genomic inference. Specifically, we have provided scripts written in shell and R to demultiplex sequence data and assemble loci with `Stacks`, estimate population structure with both parametric and non-parametric population-clustering approaches (`Admixture` and `adegenet`), and to infer population structure under a spatially explicit model with `conStruct`.
