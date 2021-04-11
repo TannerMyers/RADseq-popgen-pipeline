@@ -116,7 +116,7 @@ All necessary data and R scripts are available in the conStruct folder within th
 
 Input Data Required:
 - STRUCTURE formatted file 
-	- converted .vcf to .str file in PGDSpider
+	- converted .vcf to .str file in [PGDSpider](http://www.cmpg.unibe.ch/software/PGDSpider/)
 - Lat/Long data for each individual
 - geoDistance matrix (only necessary for spatial runs)
 
