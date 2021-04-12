@@ -42,7 +42,7 @@ The datasets we downloaded came from the following articles:
 
 ### Stacks
 
-`Stacks` is a pipeline used to assemble RADseq data and consists of wrappers written in Perl that are implemented in C++. The first step in the Stacks pipeline is `process_radtags`, which demultiplexes and cleans raw reads. Then, the main `Stacks` pipeline assembles loci within individuals with `ustacks`, identifies a catalog of loci with `cstacks` and then matches loci against the catalog with `sstacks`, and `tsv2bam` converts the .tsv files created in previous steps into .bam files. `gstacks` builds contigs by incorporating the paired-end reads, calls variants (SNPs), and genotypes samples. Then, users can run `populations` to filter data, estimate population genetic parameters, and creates file formatted for input in population genetic and phylogenetic analysis software.
+`Stacks` is a pipeline used to assemble RADseq data and consists of wrappers written in Perl that are implemented in C++ ([Rochette & Catchen, 2019](## References)). The first step in the Stacks pipeline is `process_radtags`, which demultiplexes and cleans raw reads. Then, the main `Stacks` pipeline assembles loci within individuals with `ustacks`, identifies a catalog of loci with `cstacks` and then matches loci against the catalog with `sstacks`, and `tsv2bam` converts the .tsv files created in previous steps into .bam files. `gstacks` builds contigs by incorporating the paired-end reads, calls variants (SNPs), and genotypes samples. Then, users can run `populations` to filter data, estimate population genetic parameters, and creates file formatted for input in population genetic and phylogenetic analysis software.
 
 Prior to running `Stacks`, we recommend formatting the directory in which you will be assembly RADseq loci according to the recommendations of [Rochette & Catchen (2017)](## References).
 
@@ -66,8 +66,6 @@ Downloading and indexing a reference genome
 ***
 
 After you run `Stacks` on your entire dataset, you may be dissatisfied by the number of loci recovered. There are both biological (e.g., allelic dropout) and experimental causes of missing data in RADseq datasets and both can diminish the quality of RADseq datasets. We provide a solution to remedy this issue using the protocol of [Cerca et al. (2021)](## References), which uses `vcftools` to quantify the frequency of missing data in each individual within a population so that one can identify individuals with missing data frequencies higher than the population average and remove them from the dataset. First, split your population map file into many population maps for each population in your dataset. Then, make directories corresponding to each population. Using the same optimized parameters you identified for your whole dataset, execute **run\_stacks_pipeline.sh** for each individual population, outputting the files produced by `Stacks` to each population's directory. After `Stacks` completes for each population, run the script **individual-missing-data-assessment.sh**. The **bad_apples** file produced by the script will include the individuals with missing data exceeding their population's average missing data frequency. Drop these from your dataset unless their population's missing data average is lower than the dataset average (the "MEAN_MISSING" value in the log file), in which case keep the individuals below the missing data average. 
-
-After deciding which individuals to drop from the dataset, omit them from your population map and run the `populations` module again with the new cleaned population map. The `populations` module includes many options for filtering your final dataset. We included several flags in **run\_stacks_pipeline.sh** to give you an idea of the options available. 
 
 By following these steps, one can optimize the RADseq dataset obtained from `Stacks` by optimizing the `Stacks` parameters and filtering out low-quality individuals. At this stage, edit the flags provided to `populations` in **run\_stacks_pipeline.sh** to include your filtering strategies and your desired output file formats. 
 
@@ -169,8 +167,6 @@ Sources for Programs:
 ## References
 
 > Cerca, J., M. F. Maurstad, N. C. Rochette, A. G. Rivera‐Colón, N. Rayamajhi, J. M. Catchen, and T. H. Struck. 2021. Removing the bad apples: A simple bioinformatic method to improve loci‐recovery in de novo RADseq data for non‐model organisms. Methods Ecol Evol 2041–210X.13562.
-> 
-> Linck, E., and C. J. Battey. 2019. Minor allele frequency thresholds strongly affect population structure inference with genomic data sets. Mol Ecol Resour 19:639–647. doi: 10.1111/1755-0998.12995.
 > 
 > Paris, J. R., J. R. Stevens, and J. M. Catchen. 2017. Lost in parameter space: a road map for stacks. Methods Ecol Evol 8:1360–1373. doi: 10.1111/2041-210X.12775.
 > 
