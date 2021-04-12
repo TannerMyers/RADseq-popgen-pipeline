@@ -26,14 +26,8 @@ for (Q in files){
     pdf(file = paste0("Admixture_",Q,".pdf"))
     
     # Make structure plot using rainbow colors for different K values
-    barplot(t(as.matrix(tbl)), col=rainbow(K),
-    xlab="Individual #", ylab="Ancestry", border=NA)
+    barplot(t(as.matrix(tbl)), col=rainbow(K), 
+	main=paste0("K =",K),
+    	xlab="Individual #", ylab="Ancestry", border=NA)
     dev.off()
 }
-
-#tbl=read.table("populations_r20.haplotypes.filtered_m70_randomSNP_recoded.4.Q")
-# Save plots as pdf format 
-#pdf(file="")
-#barplot(t(as.matrix(tbl)), col=rainbow(3),
-#xlab="Individual #", ylab="Ancestry", border=NA)
-#dev.off()
