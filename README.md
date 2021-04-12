@@ -157,9 +157,29 @@ Then, you can install Admixture as a package:
 	# Or, create an environment
 	conda create -n admixture admixture
 	
-Admixture accepts PLINK (extension .ped) or binary PLINK (extension .bed) as input. 
- 
-	 
+Admixture accepts PLINK (extension .ped) or binary PLINK (extension .bed) as input. You will also need an idea of how many populations are present in your dataset – this will be your "K" value.
+
+	# Run Admixture with a K of 3
+	admixture input.ped 3
+
+This command would result in two output files –input.3.Q and input.3.P– containing two different parameters: Q contains the ancestry fractions and P contains the inferred ancestral population allele frequencies. The above command would only result in point estimates. To get standard errors, `Admixture` allows users to estimate them via bootstrapping with the `-B` flag. Note: bootstrapping takes much longer than just estimating point estimates and requires an additional input file (extension .map).	 
+One common goal of researchers estimating population structure is to get support for different values of K. This can be done through cross validation, implemented with the `--cv` flag of `Admixture`. In the script **run_admixture.sh**, we run Admixture for K values ranging from 1 - 10 with cross-validation and tested it on the dataset of [Bouzid et al. (2021)](https://datadryad.org/stash/dataset/doi:10.5061/dryad.n5tb2rbv2). In addition to the .P and .Q files produced by `Admixture`, our script outputs log files where users can find the cross-validation errors necessary to determine a proper K value. 
+
+	# Enter this command in the directory with your Admixture output files
+	grep -h CV log*.out
+	CV error (K=10): 0.52598
+	CV error (K=1): 0.51952
+	CV error (K=2): 0.46027
+	CV error (K=3): 0.43182
+	CV error (K=4): 0.42461
+	CV error (K=5): 0.42815
+	CV error (K=6): 0.46657
+	CV error (K=7): 0.46550
+	CV error (K=8): 0.49150
+	CV error (K=9): 0.49728
+	# In this case, K=4 and K=5 are the most well supported
+
+To plot ancestry fractions (Q) and generate "structure plots", our script **run_admixture.sh** runs the R script **plot_Admixture.r** to generate pdf files for as many values of K that you tested.
 
 Users planning to publish the results of their `Admixture` analyses will want to delve deeper into their data, but we hope that the introduction provided here is enough to get started.
 
