@@ -4,9 +4,9 @@ This folder contains the necessary files and R script to run a construct analysi
 
 ## Formatting Data
 
-The input format for your RADseq data is STRUCTURE format. If you have a different file format (i.e. vcf file format) you can use PGDspider to covert to the desired file format. PGDSpider can be downloaded and run as a GUI, or can be run on the command line.
+The input format for your RADseq data is STRUCTURE format. If you have a different file format (i.e. vcf file format) you can use PGDspider to covert to the desired file format. PGDSpider can be downloaded and run as a GUI, or can be run on the command line using bash. 
 
-```
+```bash
 java -Xmx1024m -Xms512m -jar PGDSpider2-cli.jar
 
 PGDSpider2-cli -inputfile <file> -inputformat <format> -outputfile <file> -outputformat <format> -spid <file>
@@ -20,7 +20,7 @@ PGDSpider2-cli  -inputfile examples\example_VCF.vcf -inputformat VCF
 
 
 The following command will read in the structure formatted file and read it in as a conStruct dataset. 
-```
+```R
 conStruct.data <- structure2conStruct(infile = "~/Desktop/myStructureData.str",
                                      onerowperind = TRUE,
                                      start.loci = 3,
@@ -28,3 +28,5 @@ conStruct.data <- structure2conStruct(infile = "~/Desktop/myStructureData.str",
                                      missing.datum = -9,
                                      outfile = "~/Desktop/myConStructData")
                                      ```
+
+
