@@ -185,7 +185,7 @@ Users planning to publish the results of their `Admixture` analyses will want to
 
 ### conStruct
 
-All necessary R scripts are available in the conStruct folder within this repository. 
+All necessary R scripts are available in the [conStruct folder](https://github.com/TannerMyers/RADseq-popgen-pipeline/tree/main/conStruct) within this repository. 
 
 Input Data Required:
 - STRUCTURE formatted file 
