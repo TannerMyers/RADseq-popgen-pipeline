@@ -6,11 +6,19 @@
 # Change to your working directory
 setwd("/scratch/tcm0036/scripting-project/RADseq-popgen-pipeline/Admixture-test")
 
+files <- list.files(pattern=".Q")
+for (Q in files){
+    output <- basename(file.path(Q, fsep=".Q"))
+    tbl <- read.table(Q)
+    pdf(paste0("Admixture_",Q,".pdf"))
+    barplot(t(as.matrix(tbl)), col=rainbow(),
+    xlab="Individual #", ylab="Ancestry", border=NA)
+    dev.off()
+}
 
-
-tbl=read.table("populations_r20.haplotypes.filtered_m70_randomSNP_recoded.4.Q")
+#tbl=read.table("populations_r20.haplotypes.filtered_m70_randomSNP_recoded.4.Q")
 # Save plots as pdf format 
-pdf(file="")
-barplot(t(as.matrix(tbl)), col=rainbow(3),
-xlab="Individual #", ylab="Ancestry", border=NA)
-dev.off()
+#pdf(file="")
+#barplot(t(as.matrix(tbl)), col=rainbow(3),
+#xlab="Individual #", ylab="Ancestry", border=NA)
+#dev.off()
