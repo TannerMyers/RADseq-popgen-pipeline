@@ -140,6 +140,8 @@ There is a lot more information you can get from the DAPC analysis such as which
 
 ### Admixture
 
+
+
 ### conStruct
 
 All necessary data and R scripts are available in the conStruct folder within this repository. 
@@ -165,8 +167,13 @@ Sources for Programs:
 - `ConStruct`: [https://github.com/gbradburd/conStruct](https://github.com/gbradburd/conStruct)
 
 ## References
-
-> Cerca, J., M. F. Maurstad, N. C. Rochette, A. G. Rivera‐Colón, N. Rayamajhi, J. M. Catchen, and T. H. Struck. 2021. Removing the bad apples: A simple bioinformatic method to improve loci‐recovery in de novo RADseq data for non‐model organisms. Methods Ecol Evol 2041–210X.13562.
+> Alexander, D. H., J. Novembre, and K. Lange. 2009. Fast model-based estimation of ancestry in unrelated individuals. Genome Research 19: 1655–1664. doi: 10.1101/gr.094052.109.
+>
+> Bradburd, G. S., G. M. Coop, and P. L. Ralph. 2018. Inferring continuous and discrete population genetic structure across space. Genetics 210:33–52. doi: https://doi.org/10.1534/genetics.118.301333. 
+>
+> Cerca, J., M. F. Maurstad, N. C. Rochette, A. G. Rivera‐Colón, N. Rayamajhi, J. M. Catchen, and T. H. Struck. 2021. Removing the bad apples: A simple bioinformatic method to improve loci‐recovery in de novo RADseq data for non‐model organisms. Methods Ecol Evol 2041–210X.13562. doi: 10.1111/2041-210X.13562.
+> 
+> Jombart, T., and I. Ahmed. 2011. adegenet 1.3-1: new tools for the analysis of genome-wide SNP data. Bioinformatics 27:3070–3071. doi: 10.1093/bioinformatics/btr521.
 > 
 > Paris, J. R., J. R. Stevens, and J. M. Catchen. 2017. Lost in parameter space: a road map for stacks. Methods Ecol Evol 8:1360–1373. doi: 10.1111/2041-210X.12775.
 > 
