@@ -16,7 +16,7 @@ files <- list.files(pattern=".Q")
 for (Q in files){
     output <- basename(file.path(Q, fsep=".Q"))
     
-    K <- str_extract(files, '(\\.[0-9]+\\.)')
+    K <- str_extract(Q, '(\\.[0-9]+\\.)')
     K <- str_extract(K,'[0-9]+') # there is a better way to do this with only 1 line of code, but this works for now
 
     # Read in the .Q file as a table
