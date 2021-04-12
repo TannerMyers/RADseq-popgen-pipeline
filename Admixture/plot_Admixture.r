@@ -14,4 +14,3 @@ pdf(file="")
 barplot(t(as.matrix(tbl)), col=rainbow(3),
 xlab="Individual #", ylab="Ancestry", border=NA)
 dev.off()
->>>>>>> e9e4c128afcd11ab3e87a58e96a4970ce8b1c0c7
