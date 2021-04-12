@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+# Before running, initialize your conda environment with `Admixture`
 #conda init bash
-#conda activate structure
+#conda activate admixture
 
 # Name variables
 INPUT_FILE=$1

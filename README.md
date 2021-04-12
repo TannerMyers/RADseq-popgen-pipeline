@@ -42,15 +42,15 @@ The datasets we downloaded came from the following articles:
 
 ### Stacks
 
-`Stacks` is a pipeline used to assemble RADseq data and consists of wrappers written in Perl that are implemented in C++ ([Rochette & Catchen, 2019](## References)). The first step in the Stacks pipeline is `process_radtags`, which demultiplexes and cleans raw reads. Then, the main `Stacks` pipeline assembles loci within individuals with `ustacks`, identifies a catalog of loci with `cstacks` and then matches loci against the catalog with `sstacks`, and `tsv2bam` converts the .tsv files created in previous steps into .bam files. `gstacks` builds contigs by incorporating the paired-end reads, calls variants (SNPs), and genotypes samples. Then, users can run `populations` to filter data, estimate population genetic parameters, and creates file formatted for input in population genetic and phylogenetic analysis software.
+`Stacks` is a pipeline used to assemble RADseq data and consists of wrappers written in Perl that are implemented in C++ (Rochette & Catchen, 2019). The first step in the Stacks pipeline is `process_radtags`, which demultiplexes and cleans raw reads. Then, the main `Stacks` pipeline assembles loci within individuals with `ustacks`, identifies a catalog of loci with `cstacks` and then matches loci against the catalog with `sstacks`, and `tsv2bam` converts the .tsv files created in previous steps into .bam files. `gstacks` builds contigs by incorporating the paired-end reads, calls variants (SNPs), and genotypes samples. Then, users run `populations` to filter data, estimate population genetic parameters, and creates file formatted for input in population genetic and phylogenetic analysis software. We provide several shell and R scripts to guide your assembly of RADseq loci with `Stacks`.
 
-Prior to running `Stacks`, we recommend formatting the directory in which you will be assembly RADseq loci according to the recommendations of [Rochette & Catchen (2017)](## References).
+Prior to running `Stacks`, we recommend formatting the directory in which you will be assembly RADseq loci according to the recommendations of Rochette & Catchen (2017).
 
 Users can run the script **run\_proc_radtags.sh** to execute `process_radtags`. You will need a tab-delimited file containing barcodes and sample IDs to provide names to the demultiplexed sample fastq files. Then, use **processradtags_results.sh** and **processradtags_results.r** to plot the number of retained reads for each individual in your dataset.
 
-Prior to running `Stacks`, make a population map file consisting of tab-delimited columns of samples and their populations. Running the `Stacks` pipeline can be done by using either **run\_denovo_map.sh** or the **run\_stacks_pipeline.sh**. The **run\_denovo_map.sh** script uses `denovo_map`, a wrapper provided by `Stacks` that automates the pipeline, but this approach can be limited by large numbers of samples and is less flexible than just running each component of the pipeline individually. We recommend using the results from `process_radtags` to identify a subset of individuals to use **run\_denovo_map.sh** with to see the effect that different parameter values have on the number of loci and SNPs retained by Stacks (see [Paris et al. (2017)](## References) for more information to guide your parameter value selection). The `Stacks` developers recommend setting the `-R` flag in the `populations` module to 0.80, requiring all loci that are retained to be found in 80% of the populations specified in your population map file.
+Prior to running `Stacks`, make a population map file consisting of tab-delimited columns of samples and their populations. Running the `Stacks` pipeline can be done by using either **run\_denovo_map.sh** or the **run\_stacks_pipeline.sh**. The **run\_denovo_map.sh** script uses `denovo_map`, a wrapper provided by `Stacks` that automates the pipeline, but this approach can be limited by large numbers of samples and is less flexible than just running each component of the pipeline individually. We recommend using the results from `process_radtags` to identify a subset of individuals to use **run\_denovo_map.sh** with to see the effect that different parameter values have on the number of loci and SNPs retained by Stacks (see Paris et al. (2017) for more information to guide your parameter value selection). The `Stacks` developers recommend setting the `-R` flag in the `populations` module to 0.80, requiring all loci that are retained to be found in 80% of the populations specified in your population map file.
 
-Note: `Stacks` offers another wrapper that allows users to perform a reference genome-based assembly called `ref_map`. Following [Paris et al. (2017)](## References), we used the integrated approach in which we assemble loci *de novo*, align the consensus assembled loci against the reference genome of a closely related species, and then integrate information from that alignment back into the assembled loci. The integrated approach was found to result in considerably more loci than use of `ref_map`. 
+Note: `Stacks` offers another wrapper that allows users to perform a reference genome-based assembly called `ref_map`. Following Paris et al. (2017), we used the integrated approach in which we assemble loci *de novo*, align the consensus assembled loci against the reference genome of a closely related species, and then integrate information from that alignment back into the assembled loci. The integrated approach was found to result in considerably more loci than use of `ref_map`. 
 
 Once `Stacks` has completed for your subset of samples and the optimal parameter values have been identified, we recommend running it all the way through with all your samples using **run\_stacks_pipeline.sh**. If you are using a reference genome, follow the steps provided below. If not, remove the `bwa mem` and `stacks-integrate-alignments` lines from the script. 
 
@@ -65,7 +65,7 @@ Downloading and indexing a reference genome
 
 ***
 
-After you run `Stacks` on your entire dataset, you may be dissatisfied by the number of loci recovered. There are both biological (e.g., allelic dropout) and experimental causes of missing data in RADseq datasets and both can diminish the quality of RADseq datasets. We provide a solution to remedy this issue using the protocol of [Cerca et al. (2021)](## References), which uses `vcftools` to quantify the frequency of missing data in each individual within a population so that one can identify individuals with missing data frequencies higher than the population average and remove them from the dataset. First, split your population map file into many population maps for each population in your dataset. Then, make directories corresponding to each population. Using the same optimized parameters you identified for your whole dataset, execute **run\_stacks_pipeline.sh** for each individual population, outputting the files produced by `Stacks` to each population's directory. After `Stacks` completes for each population, run the script **individual-missing-data-assessment.sh**. The **bad_apples** file produced by the script will include the individuals with missing data exceeding their population's average missing data frequency. Drop these from your dataset unless their population's missing data average is lower than the dataset average (the "MEAN_MISSING" value in the log file), in which case keep the individuals below the missing data average. 
+After you run `Stacks` on your entire dataset, you may be dissatisfied by the number of loci recovered. There are both biological (e.g., allelic dropout) and experimental causes of missing data in RADseq datasets and both can diminish the quality of RADseq datasets. We provide a solution to remedy this issue using the protocol of Cerca et al. (2021), which uses `vcftools` to quantify the frequency of missing data in each individual within a population so that one can identify individuals with missing data frequencies higher than the population average and remove them from the dataset. First, split your population map file into many population maps for each population in your dataset. Then, make directories corresponding to each population. Using the same optimized parameters you identified for your whole dataset, execute **run\_stacks_pipeline.sh** for each individual population, outputting the files produced by `Stacks` to each population's directory. After `Stacks` completes for each population, run the script **individual-missing-data-assessment.sh**. The **bad_apples** file produced by the script will include the individuals with missing data exceeding their population's average missing data frequency. Drop these from your dataset unless their population's missing data average is lower than the dataset average (the "MEAN_MISSING" value in the log file), in which case keep the individuals below the missing data average. 
 
 By following these steps, one can optimize the RADseq dataset obtained from `Stacks` by optimizing the `Stacks` parameters and filtering out low-quality individuals. At this stage, edit the flags provided to `populations` in **run\_stacks_pipeline.sh** to include your filtering strategies and your desired output file formats. 
 
@@ -140,11 +140,52 @@ There is a lot more information you can get from the DAPC analysis such as which
 
 ### Admixture
 
+`Admixture` is used to infer population structure and estimate ancestry. Unlike the approaches implemented in `adegenet`, `Admixture` implements a model-based framework to infer population structure similar to the program `STRUCTURE`. One advantage of `Admixture` and the reason why we chose to demonstrate it here is that the `Admixture` maximum likelihood estimation approach is much faster than `STRUCTURE`'s Bayesian implementation without sacrificing accuracy (Alexander et al., 2009).
 
+To install Admixture, we recommend using the channel `bioconda` of the package manager `conda`. If you have conda already installed, enter these commands onto the command line:
+	
+	# Setting up bioconda
+	conda config --add channels defaults
+	conda config --add channels bioconda
+	conda config --add channels conda-forge
+	
+Then, you can install Admixture as a package:
+	
+	# Installing Admixture
+	conda install -c bioconda admixture
+	
+	# Or, create an environment
+	conda create -n admixture admixture
+	
+Admixture accepts PLINK (extension .ped) or binary PLINK (extension .bed) as input. You will also need an idea of how many populations are present in your dataset – this will be your "K" value.
+
+	# Run Admixture with a K of 3
+	admixture input.ped 3
+
+This command would result in two output files –input.3.Q and input.3.P– containing two different parameters: Q contains the ancestry fractions and P contains the inferred ancestral population allele frequencies. The above command would only result in point estimates. To get standard errors, `Admixture` allows users to estimate them via bootstrapping with the `-B` flag. Note: bootstrapping takes much longer than just estimating point estimates and requires an additional input file (extension .map).	 
+One common goal of researchers estimating population structure is to get support for different values of K. This can be done through cross validation, implemented with the `--cv` flag of `Admixture`. In the script **run_admixture.sh**, we run Admixture for K values ranging from 1 - 10 with cross-validation and tested it on the dataset of [Bouzid et al. (2021)](https://datadryad.org/stash/dataset/doi:10.5061/dryad.n5tb2rbv2). In addition to the .P and .Q files produced by `Admixture`, our script outputs log files where users can find the cross-validation errors necessary to determine a proper K value. 
+
+	# Enter this command in the directory with your Admixture output files
+	grep -h CV log*.out
+	CV error (K=10): 0.52598
+	CV error (K=1): 0.51952
+	CV error (K=2): 0.46027
+	CV error (K=3): 0.43182
+	CV error (K=4): 0.42461
+	CV error (K=5): 0.42815
+	CV error (K=6): 0.46657
+	CV error (K=7): 0.46550
+	CV error (K=8): 0.49150
+	CV error (K=9): 0.49728
+	# In this case, K=4 and K=5 are the most well supported
+
+To plot ancestry fractions (Q) and generate "structure plots", our script **run_admixture.sh** runs the R script **plot_Admixture.r** to generate pdf files for as many values of K that you tested.
+
+Users planning to publish the results of their `Admixture` analyses will want to delve deeper into their data, but we hope that the introduction provided here is enough to get started.
 
 ### conStruct
 
-All necessary data and R scripts are available in the conStruct folder within this repository. 
+All necessary R scripts are available in the [conStruct folder](https://github.com/TannerMyers/RADseq-popgen-pipeline/tree/main/conStruct) within this repository. 
 
 Input Data Required:
 - STRUCTURE formatted file 
