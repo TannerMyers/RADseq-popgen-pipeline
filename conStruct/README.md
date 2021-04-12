@@ -2,6 +2,8 @@
 
 This folder contains the necessary files and R script to run a construct analysis. The following includes information to get started with your own conStruct analysis, along with details of calling the vignettes and data provided in the conStruct package to demonstrate the analyses. 
 
+The full R script for data formatting and analysis is []().
+
 ## Formatting Data
 
 Input Data:
