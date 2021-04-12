@@ -2,7 +2,7 @@
 
 This folder contains the necessary files and R script to run a construct analysis. The following includes information to get started with your own conStruct analysis, along with details of calling the vignettes and data provided in the conStruct package to demonstrate the analyses. 
 
-The full R script for data formatting and analysis is [construct_script_updated.R](https://github.com/TannerMyers/RADseq-popgen-pipeline/blob/main/conStruct/construct_script_updated.R).
+The full R script for data formatting and analysis is [construct_script_updated.R](https://github.com/TannerMyers/RADseq-popgen-pipeline/blob/main/conStruct/construct_script_updated.R). The only other code that is necessary if a STRUCTURE file is not available is the code below for PGDSpider on the command line to covert vcf to STRUCTURE format (but can be used to covert to and from other formats).
 
 ## Formatting Data
 
