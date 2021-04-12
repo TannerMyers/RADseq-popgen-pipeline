@@ -278,16 +278,47 @@ compare.two.runs(conStruct.results1=spK2_cr,
 
 
 ####
+
 my.xvals <- x.validation(train.prop = 0.9,
-                         n.reps = 8,
+                         n.reps = 2,
                          K = 1:3,
-                         freqs = mydata,
+                         freqs = conStruct.data$allele.frequencies,
                          data.partitions = NULL,
-                         geoDist = tdist,
-                         coords = xy_reduced,
-                         prefix = "test",
-                         n.iter = 1e3,
+                         geoDist = conStruct.data$geoDist,
+                         coords = conStruct.data$coords,
+                         prefix = "test1",
+                         n.iter = 500,
                          make.figs = TRUE,
                          save.files = FALSE,
                          parallel = FALSE,
                          n.nodes = NULL)
+sp.results <- as.matrix(
+  read.table("test1_sp_xval_results.txt",
+             header = TRUE,
+             stringsAsFactors = FALSE)
+)
+nsp.results <- as.matrix(
+  read.table("test1_nsp_xval_results.txt",
+             header = TRUE,
+             stringsAsFactors = FALSE)
+)
+sp.results <- Reduce("cbind",lapply(my.xvals,function(x){unlist(x$sp)}),init=NULL)
+nsp.results <- Reduce("cbind",lapply(my.xvals,function(x){unlist(x$nsp)}),init=NULL)
+
+#get 95% CIs
+sp.CIs <- apply(sp.results,1,function(x){mean(x) + c(-1.96,1.96) * sd(x)/length(x)})
+nsp.CIs <- apply(nsp.results,1,function(x){mean(x) + c(-1.96,1.96) * sd(x)/length(x)})
+
+
+# then, plot cross-validation results for K=1:3 with 2 replicates
+par(mfrow=c(1,2))
+plot(rowMeans(sp.results),
+     pch=19,col="blue",
+     ylab="predictive accuracy",xlab="values of K",
+     ylim=range(sp.results,nsp.results),
+     main="cross-validation results")
+points(rowMeans(nsp.results),col="green",pch=19)
+
+
+#do a test between spatial and non-spatial to see if significantly different
+t.test(sp.results[3,],nsp.results[3,],paired=TRUE,alternative="greater")
