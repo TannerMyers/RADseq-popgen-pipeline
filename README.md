@@ -42,9 +42,9 @@ The datasets we downloaded came from the following articles:
 
 ### Stacks
 
-`Stacks` is a pipeline used to assemble RADseq data and consists of wrappers written in Perl that are implemented in C++ Rochette & Catchen, 2019. The first step in the Stacks pipeline is `process_radtags`, which demultiplexes and cleans raw reads. Then, the main `Stacks` pipeline assembles loci within individuals with `ustacks`, identifies a catalog of loci with `cstacks` and then matches loci against the catalog with `sstacks`, and `tsv2bam` converts the .tsv files created in previous steps into .bam files. `gstacks` builds contigs by incorporating the paired-end reads, calls variants (SNPs), and genotypes samples. Then, users run `populations` to filter data, estimate population genetic parameters, and creates file formatted for input in population genetic and phylogenetic analysis software. We provide several shell and R scripts to guide your assembly of RADseq loci with `Stacks`.
+`Stacks` is a pipeline used to assemble RADseq data and consists of wrappers written in Perl that are implemented in C++ (Rochette & Catchen, 2019). The first step in the Stacks pipeline is `process_radtags`, which demultiplexes and cleans raw reads. Then, the main `Stacks` pipeline assembles loci within individuals with `ustacks`, identifies a catalog of loci with `cstacks` and then matches loci against the catalog with `sstacks`, and `tsv2bam` converts the .tsv files created in previous steps into .bam files. `gstacks` builds contigs by incorporating the paired-end reads, calls variants (SNPs), and genotypes samples. Then, users run `populations` to filter data, estimate population genetic parameters, and creates file formatted for input in population genetic and phylogenetic analysis software. We provide several shell and R scripts to guide your assembly of RADseq loci with `Stacks`.
 
-Prior to running `Stacks`, we recommend formatting the directory in which you will be assembly RADseq loci according to the recommendations of [Rochette & Catchen (2017)](## References).
+Prior to running `Stacks`, we recommend formatting the directory in which you will be assembly RADseq loci according to the recommendations of Rochette & Catchen (2017).
 
 Users can run the script **run\_proc_radtags.sh** to execute `process_radtags`. You will need a tab-delimited file containing barcodes and sample IDs to provide names to the demultiplexed sample fastq files. Then, use **processradtags_results.sh** and **processradtags_results.r** to plot the number of retained reads for each individual in your dataset.
 
@@ -142,7 +142,24 @@ There is a lot more information you can get from the DAPC analysis such as which
 
 `Admixture` is used to infer population structure and estimate ancestry. Unlike the approaches implemented in `adegenet`, `Admixture` implements a model-based framework to infer population structure similar to the program `STRUCTURE`. One advantage of `Admixture` and the reason why we chose to demonstrate it here is that the `Admixture` maximum likelihood estimation approach is much faster than `STRUCTURE`'s Bayesian implementation without sacrificing accuracy (Alexander et al., 2009).
 
+To install Admixture, we recommend using the channel `bioconda` of the package manager `conda`. If you have conda already installed, enter these commands onto the command line:
+	
+	# Setting up bioconda
+	conda config --add channels defaults
+	conda config --add channels bioconda
+	conda config --add channels conda-forge
+	
+Then, you can install Admixture as a package:
+	
+	# Installing Admixture
+	conda install -c bioconda admixture
+	
+	# Or, create an environment
+	conda create -n admixture admixture
+	
+Admixture accepts PLINK (extension .ped) or binary PLINK (extension .bed) as input. 
  
+	 
 
 Users planning to publish the results of their `Admixture` analyses will want to delve deeper into their data, but we hope that the introduction provided here is enough to get started.
 
