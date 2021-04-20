@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-# Before running, initialize your conda environment with `Admixture`
-#conda init bash
-#conda activate admixture
+module load R/3.6.3
 
 # Name variables
 INPUT_FILE=$1
